@@ -1,8 +1,9 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class createExpense extends Component {
+export default class AddExpense extends Component {
     constructor(props){
         super(props);
 
@@ -15,7 +16,7 @@ export default class createExpense extends Component {
         this.state = {
             email: '',
             amount: 0,
-            category: [],
+            category: '',
             date: new Date()
         }
     }
@@ -45,6 +46,9 @@ export default class createExpense extends Component {
 
         console.log(expense);
 
+        axios.post('http://localhost:5000/expenses/add', expense)
+            .then(res => console.log(res.data));
+
         window.location = '/';
     }
 
@@ -64,13 +68,10 @@ export default class createExpense extends Component {
                     <div className='form-group'>
                         <label>Category: </label>
                         <select ref='expenseDate' required className='form-control' value={this.state.category} onChange={this.onChangeCategory}>
-                            {
-                                this.state.category.map((category) => {
-                                    return <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                })
-                            }
+                            <option value='Food'>Food</option>
+                            <option value='Transportation'>Transportation</option>
+                            <option value='Entertainment'>Entertainment</option>
+                            <option value='Misc'>Misc.</option>
                         </select>
                     </div>
                     <div className='form-group'>
