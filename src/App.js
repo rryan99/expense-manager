@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import AddExpense from './components/AddExpense';
 import Navbar from './components/Navbar';
 import ExpenseList from './components/ExpenseList';
+import AddExpense from './components/AddExpense';
+import EditExpense from './components/EditExpense';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <br/>
           <Route path='/' exact component={ExpenseList}/>
           <Route path='/add' component={AddExpense}/>
+          <Route path='/update/:id' component={EditExpense}/>
         </div>
       </div>
     </Router>

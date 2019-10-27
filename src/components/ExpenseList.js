@@ -3,16 +3,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 const Expense = (props) => (
-    <li class='list-group-item' style={{margin: '10px'}}>
-        ${props.expense.amount}
-        <h6>{props.expense.date.substring(0,10)}</h6>
-        <span>
-            <Link to={'/edit/' + props.expense._id}>Edit</Link> | <a href='#' onClick={() => {
-                props.deleteExpense(props.expense._id)
-            }}>Delete</a>
-        </span>
-        <br/>
-        <span class='badge badge-dark'>{props.expense.category}</span>
+    <li className='list-group-item d-flex flex-column' style={{margin: '5px'}}>
+        <div className='d-flex' style={{lineHeight: 0}}>
+            <div className='p-2 flex-grow-1'>
+                <b>${props.expense.amount.toFixed(2)}</b>
+            </div>
+        </div>
+        <div className='d-flex'>
+            <div class='p-2 flex-grow-1'>{props.expense.desc}</div>
+            <div class='p-2'>{props.expense.date.substring(0,10)}</div>
+            <div class='p-2'>
+                <Link to={'/update/' + props.expense._id}>Edit</Link> | <a href='#' onClick={() => {
+                    props.deleteExpense(props.expense._id)
+                }}>Delete</a>
+            </div>
+        </div>
+
+        <div class='badge badge-secondary'>{props.expense.category}</div>
     </li>
 )
 

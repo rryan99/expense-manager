@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class AddExpense extends Component {
+export default class EditExpense extends Component {
     constructor(props){
         super(props);
 
@@ -21,6 +21,22 @@ export default class AddExpense extends Component {
             category: '',
             date: new Date()
         }
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:5000/expenses/' + this.props.match.params.id)
+            .then((res) => {
+                this.setState({
+                    email: res.data.email,
+                    desc: res.data.desc,
+                    amount: res.data.amount,
+                    category: res.data.category,
+                    date: new Date(res.data.date)
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     onChangeEmail(e){
@@ -52,7 +68,7 @@ export default class AddExpense extends Component {
 
         console.log(expense);
 
-        axios.post('http://localhost:5000/expenses/add', expense)
+        axios.post('http://localhost:5000/expenses/update/' + this.props.match.params.id, expense)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -61,11 +77,10 @@ export default class AddExpense extends Component {
     render(){
         return (
             <div>
-                <h2>New Expense</h2>
+                <h2>Edit Expense</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-group'>
-                        <label>Email: </label>
-                        <input type='text' required className='form-control' value={this.state.email} onChange={this.onChangeEmail}/>
+                        <input type='hidden' required className='form-control' value={this.state.email} onChange={this.onChangeEmail}/>
                     </div>
                     <div className='form-group'>
                         <label>Description: </label>
@@ -91,7 +106,7 @@ export default class AddExpense extends Component {
                         </div>
                     </div>
                     <div className='form-group'>
-                        <input type='submit' value='Add Expense' className='btn btn-dark'/>
+                        <input type='submit' value='Update' className='btn btn-dark'/>
                     </div>
                 </form>
             </div>

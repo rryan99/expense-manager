@@ -10,12 +10,14 @@ router.route('/').get((req, res) => {
 //add expense
 router.route('/add').post((req, res) => {
     const email = req.body.email;
+    const desc = req.body.desc;
     const amount = Number(req.body.amount);
     const category = req.body.category;
     const date = Date.parse(req.body.date);
 
     const newExpense = new Expense({
         email,
+        desc,
         amount,
         category,
         date
@@ -28,7 +30,7 @@ router.route('/add').post((req, res) => {
 
 //get expense
 router.route('/:id').get((req, res) => {
-    Expense.findById(req.params,id)
+    Expense.findById(req.params.id)
         .then(expense => res.json(expense))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -45,6 +47,7 @@ router.route('/update/:id').post((req, res) => {
     Expense.findById(req.params.id)
         .then(expense => {
             expense.email = req.body.email;
+            expense.desc = req.body.desc;
             expense.amount = Number(req.body.amount);
             expense.category = req.body.category;
             expense.date = Date.parse(req.body.date);
