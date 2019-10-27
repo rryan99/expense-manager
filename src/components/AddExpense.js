@@ -87,7 +87,7 @@ export default class AddExpense extends Component {
                     <div className='form-group'>
                         <label>Date: </label>
                         <div>
-                            <DatePicker selected={this.state.date} onChange={this.onChangeDate}/>
+                            <DatePicker className='form-control' selected={this.state.date} onChange={this.onChangeDate}/>
                         </div>
                     </div>
                     <div className='form-group'>

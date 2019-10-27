@@ -9,11 +9,11 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const email = req.body.email;
-    const fName = req.body.fName;
-    const lName = req.body.lName;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
     const password = req.body.password;
 
-    const newUser = new User({ email, fName, lName, password });
+    const newUser = new User({ email, fname, lname, password });
 
     newUser.save()
         .then(() => res.json('User created!'))

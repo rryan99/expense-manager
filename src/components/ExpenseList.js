@@ -10,16 +10,16 @@ const Expense = (props) => (
             </div>
         </div>
         <div className='d-flex'>
-            <div class='p-2 flex-grow-1'>{props.expense.desc}</div>
-            <div class='p-2'>{props.expense.date.substring(0,10)}</div>
-            <div class='p-2'>
+            <div className='p-2 flex-grow-1'>{props.expense.desc}</div>
+            <div className='p-2'>{props.expense.date.substring(0,10)}</div>
+            <div className='p-2'>
                 <Link to={'/update/' + props.expense._id}>Edit</Link> | <a href='#' onClick={() => {
                     props.deleteExpense(props.expense._id)
                 }}>Delete</a>
             </div>
         </div>
 
-        <div class='badge badge-secondary'>{props.expense.category}</div>
+        <div className='badge badge-secondary'>{props.expense.category}</div>
     </li>
 )
 
@@ -61,7 +61,13 @@ export default class ExpenseList extends Component {
     render(){
         return (
             <div>
-                <h2>Expenses</h2>
+                <h2>
+                    Expenses &nbsp;
+                    <Link to='/add'>
+                        <button type='button' className='btn btn-secondary btn-sm' style={{marginBottom: 5}}>+</button>
+                    </Link>
+                </h2>
+
                 <ul className='list-group'>
                     { this.ExpenseList() }
                 </ul>
