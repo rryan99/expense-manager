@@ -1,13 +1,15 @@
-const router = require('express').Router();
+const express = require('express');
 let User = require('../models/userModel');
 
-router.route('/').get((req, res) => {
+const app = express();
+
+app.get('/', (req, res) => {
     User.find()
         .then(users => res.json(users))
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/add').post((req, res) => {
+app.post('/add', (req, res) => {
     const email = req.body.email;
     const fname = req.body.fname;
     const lname = req.body.lname;
@@ -20,7 +22,7 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/login').post((req, res) => {
+app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -36,4 +38,4 @@ router.route('/login').post((req, res) => {
         .catch(err => res.status(400).json('Error ' + err))
 });
 
-module.exports = router;
+module.exports = app;

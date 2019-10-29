@@ -12,8 +12,7 @@ export default class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            loginError: '',
-            loginAttempted: false
+            loginError: ''
         }
     }
 
@@ -36,11 +35,9 @@ export default class Login extends Component {
 
         axios.post('http://localhost:5000/users/login', user)
             .then(res => {
-                //incorrect login
                 if(res.status === 204){
                     this.setState({
                         loginError: 'Incorrect credentials.',
-                        loginAttempted: true
                     })
                 }
                 else{

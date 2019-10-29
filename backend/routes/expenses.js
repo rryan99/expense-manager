@@ -1,14 +1,16 @@
-const router = require('express').Router();
+const express = require('express');
 let Expense = require('../models/expenseModel');
 
-router.route('/').get((req, res) => {
+const app = express();
+
+app.get('/', (req, res) => {
     Expense.find()
         .then(expenses => res.json(expenses))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 //add expense
-router.route('/add').post((req, res) => {
+app.post('/add', (req, res) => {
     const email = req.body.email;
     const desc = req.body.desc;
     const amount = Number(req.body.amount);
@@ -29,21 +31,21 @@ router.route('/add').post((req, res) => {
 });
 
 //get expense
-router.route('/:id').get((req, res) => {
+app.get('/:id', (req, res) => {
     Expense.findById(req.params.id)
         .then(expense => res.json(expense))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 //delete expense
-router.route('/:id').delete((req, res) => {
+app.delete('/:id', (req, res) => {
     Expense.findByIdAndDelete(req.params.id)
         .then(() => res.json('Expense deleted.'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 //update expense
-router.route('/update/:id').post((req, res) => {
+app.post('/update/:id', (req, res) => {
     Expense.findById(req.params.id)
         .then(expense => {
             expense.email = req.body.email;
@@ -60,4 +62,4 @@ router.route('/update/:id').post((req, res) => {
 });
 
 
-module.exports = router;
+module.exports = app;
