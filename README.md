@@ -1,12 +1,2 @@
 # To-do
-- add user authentication
-	- set cookies on login
-		- change login/logout on navbar
-		- redirect to login if cookie does not exist
-		- redirect to dashboard if cookie exists
-	- delete cookies on logout
-- ~~display expenses based on user emails~~
-	- ~~edit/delete expenses~~
-- automatically fill in user email for expenses
-- ~~populate category select box (food, transport, entertainment, misc)~~
-- change color of expense badge based on category
+- add chartjs to show category spendings
