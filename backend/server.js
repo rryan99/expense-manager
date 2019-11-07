@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(express.json());
 
 //mongodb connection
@@ -21,10 +21,8 @@ connection.once('open', () => {
 });
 
 //set routers
-const userRouter = require('./routes/users');
 const expenseRouter = require('./routes/expenses');
 
-app.use('/users', userRouter);
 app.use('/expenses', expenseRouter);
 
 //listen for connections

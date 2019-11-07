@@ -7,7 +7,6 @@ export default class AddExpense extends Component {
     constructor(props){
         super(props);
 
-        this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeDesc = this.onChangeDesc.bind(this);
         this.onChangeAmount = this.onChangeAmount.bind(this);
         this.onChangeCategory = this.onChangeCategory.bind(this);
@@ -15,7 +14,6 @@ export default class AddExpense extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            email: '',
             desc: '',
             amount: 0,
             category: '',
@@ -23,9 +21,6 @@ export default class AddExpense extends Component {
         }
     }
 
-    onChangeEmail(e){
-        this.setState({ email: e.target.value });
-    }
     onChangeDesc(e){
         this.setState({ desc: e.target.value });
     }
@@ -43,7 +38,6 @@ export default class AddExpense extends Component {
         e.preventDefault();
 
         const expense = {
-            email: this.state.email,
             desc: this.state.desc,
             amount: this.state.amount,
             category: this.state.category,
@@ -63,10 +57,6 @@ export default class AddExpense extends Component {
             <div>
                 <h2>New Expense</h2>
                 <form onSubmit={this.onSubmit}>
-                    <div className='form-group'>
-                        <label>Email: </label>
-                        <input type='text' required className='form-control' value={this.state.email} onChange={this.onChangeEmail}/>
-                    </div>
                     <div className='form-group'>
                         <label>Description: </label>
                         <input type='text' required className='form-control' value={this.state.desc} onChange={this.onChangeDesc}/>

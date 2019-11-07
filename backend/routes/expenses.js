@@ -3,22 +3,21 @@ let Expense = require('../models/expenseModel');
 
 const app = express();
 
+//get all expenses
 app.get('/', (req, res) => {
     Expense.find()
         .then(expenses => res.json(expenses))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(400).json('Error: ' + err))
 });
 
 //add expense
 app.post('/add', (req, res) => {
-    const email = req.body.email;
     const desc = req.body.desc;
     const amount = Number(req.body.amount);
     const category = req.body.category;
     const date = Date.parse(req.body.date);
 
     const newExpense = new Expense({
-        email,
         desc,
         amount,
         category,
@@ -48,7 +47,6 @@ app.delete('/:id', (req, res) => {
 app.post('/update/:id', (req, res) => {
     Expense.findById(req.params.id)
         .then(expense => {
-            expense.email = req.body.email;
             expense.desc = req.body.desc;
             expense.amount = Number(req.body.amount);
             expense.category = req.body.category;

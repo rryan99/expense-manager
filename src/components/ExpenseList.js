@@ -18,8 +18,16 @@ const Expense = (props) => (
                 }}>Delete</a>
             </div>
         </div>
-
-        <div className='badge badge-secondary'>{props.expense.category}</div>
+        {
+            (() => {
+                switch(props.expense.category){
+                    case 'Food': return <div className='badge badge-success'>Food</div>
+                    case 'Transportation': return <div className='badge badge-primary'>Transportation</div>
+                    case 'Entertainment': return <div className='badge badge-warning'>Entertainment</div>
+                    case 'Misc': return <div className='badge badge-secondary'>Misc.</div>
+                }
+            })()
+        }
     </li>
 )
 
