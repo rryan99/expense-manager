@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import Chart from './Chart';
+
 const Expense = (props) => (
     <li className='list-group-item d-flex flex-column' style={{margin: '5px'}}>
         <div className='d-flex' style={{lineHeight: 0}}>
@@ -13,9 +15,9 @@ const Expense = (props) => (
             <div className='p-2 flex-grow-1'>{props.expense.desc}</div>
             <div className='p-2'>{props.expense.date.substring(0,10)}</div>
             <div className='p-2'>
-                <Link to={'/update/' + props.expense._id}>Edit</Link> | <a href='#' onClick={() => {
+                <Link to={'/update/' + props.expense._id}>✏️</Link> <a href='#' onClick={() => {
                     props.deleteExpense(props.expense._id)
-                }}>Delete</a>
+                }}>🗑️</a>
             </div>
         </div>
         {
@@ -37,7 +39,7 @@ export default class ExpenseList extends Component {
 
         this.deleteExpense = this.deleteExpense.bind(this);
 
-        this.state = { expenses: []};
+        this.state = { expenses: [] };
     }
 
     componentDidMount(){
@@ -50,12 +52,6 @@ export default class ExpenseList extends Component {
             })
     }
 
-    ExpenseList(){
-        return this.state.expenses.map((x) => {
-            return <Expense expense={x} deleteExpense={this.deleteExpense} key={x._id}/>;
-        });
-    }
-
     deleteExpense(id){
         axios.delete('http://localhost:5000/expenses/' + id)
             .then((res) => {
@@ -66,19 +62,30 @@ export default class ExpenseList extends Component {
         });
     }
 
+    ExpenseList(){
+        return this.state.expenses.map((x) => {
+            return <Expense expense={x} deleteExpense={this.deleteExpense} key={x._id}/>;
+        });
+    }
+    
     render(){
         return (
-            <div>
-                <h2>
-                    Expenses &nbsp;
-                    <Link to='/add'>
-                        <button type='button' className='btn btn-secondary btn-sm' style={{marginBottom: 5}}>+</button>
-                    </Link>
-                </h2>
-
-                <ul className='list-group'>
-                    { this.ExpenseList() }
-                </ul>
+            <div className='row'>
+                <div className='col-sm-6 align-self-center'>
+                    <Chart />
+                </div>
+                <div className='col-sm-6'>
+                    <h2>
+                        Expenses &nbsp;
+                        <Link to='/add'>
+                            <button type='button' className='btn btn-secondary btn-sm' style={{marginBottom: 5}}>+</button>
+                        </Link>
+                    </h2>
+                    <hr/>
+                    <ul className='list-group'>
+                        { this.ExpenseList() }
+                    </ul>
+                </div>
             </div>
         )
     }

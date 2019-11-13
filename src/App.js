@@ -12,7 +12,7 @@ function App() {
     <Router>
       <div className="container-fluid" style={{paddingTop: '20px'}}>
         <Navbar/>
-        <div className='container'>
+        <div className='container-fluid'>
           <br/>
           <Route path='/' exact component={ExpenseList}/>
           <Route path='/add' component={AddExpense}/>

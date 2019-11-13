@@ -54,7 +54,7 @@ export default class AddExpense extends Component {
 
     render(){
         return (
-            <div>
+            <div className='container'>
                 <h2>New Expense</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-group'>
@@ -68,6 +68,7 @@ export default class AddExpense extends Component {
                     <div className='form-group'>
                         <label>Category: </label>
                         <select ref='expenseDate' required className='form-control' value={this.state.category} onChange={this.onChangeCategory}>
+                            <option value='' selected disabled hidden>Select category...</option>
                             <option value='Food'>Food</option>
                             <option value='Transportation'>Transportation</option>
                             <option value='Entertainment'>Entertainment</option>

@@ -76,7 +76,7 @@ export default class EditExpense extends Component {
 
     render(){
         return (
-            <div>
+            <div className='container'>
                 <h2>Edit Expense</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-group'>
