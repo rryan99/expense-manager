@@ -8,5 +8,5 @@
     - search bar
     - sort
     
-# Preview (as of 13/11)
+# Preview (as of 14/11)
 ![alt text](https://i.imgur.com/TQ04tVc.png)
