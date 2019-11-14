@@ -4,6 +4,7 @@
     - ~~show total spendings~~
     - fix position so users can scroll through expenses while seeing the chart
 - expense list
+    - sort by date
     - search bar
     - sort
     
