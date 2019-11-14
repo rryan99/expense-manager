@@ -36,7 +36,6 @@ const Expense = (props) => (
 export default class ExpenseList extends Component {
     constructor(props){
         super(props);
-
         this.deleteExpense = this.deleteExpense.bind(this);
 
         this.state = { expenses: [] };
@@ -56,10 +55,18 @@ export default class ExpenseList extends Component {
         axios.delete('http://localhost:5000/expenses/' + id)
             .then((res) => {
                 console.log(res.data);
+                axios.get('http://localhost:5000/expenses')
+                    .then(res => {
+                        this.setState({ expenses: res.data });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             })
-        this.setState({
-            expenses: this.state.expenses.filter((ex) =>  ex._id !== id )
-        });
+            .catch((err) => {
+                console.log(err);
+            })
+        console.log(this.state);
     }
 
     ExpenseList(){

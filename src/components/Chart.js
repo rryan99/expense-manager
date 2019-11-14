@@ -5,7 +5,7 @@ import { Doughnut } from 'react-chartjs-2';
 export default class Chart extends Component{
     constructor(props){
         super(props);
-
+        console.log(this.props);
         this.state = {};
     }
 
@@ -22,14 +22,22 @@ export default class Chart extends Component{
                 }
 
                 //add amounts
-                const total = [];
-                total[0] = data['Food'].reduce((a, b) => a + b, 0);
-                total[1] = data['Transportation'].reduce((a, b) => a + b, 0);
-                total[2] = data['Entertainment'].reduce((a, b) => a + b, 0);
-                total[3] = data['Misc'].reduce((a, b) => a + b, 0);
+                const amounts = [];
+                amounts[0] = data['Food'].reduce((a, b) => a + b, 0);
+                amounts[1] = data['Transportation'].reduce((a, b) => a + b, 0);
+                amounts[2] = data['Entertainment'].reduce((a, b) => a + b, 0);
+                amounts[3] = data['Misc'].reduce((a, b) => a + b, 0);
+
+                for(let j = 0; j < amounts.length; j++){
+                    amounts[j].toFixed(2);
+                }
+
+                //calculate total
+                let total = amounts.reduce((a, b) => a + b, 0).toFixed(2);
 
                 //set state
                 this.setState({
+                    total: total,
                     labels: ['Food', 'Transportation', 'Entertainment', 'Misc'],
                     datasets: [
                         {
@@ -45,7 +53,7 @@ export default class Chart extends Component{
                             '#CC9500', //entertainment
                             '#687078' //misc
                             ],
-                            data: total
+                            data: amounts
                         }
                     ]
                 });
@@ -53,11 +61,15 @@ export default class Chart extends Component{
             .catch((err) => {
                 console.log(err);
             })
+        .catch(err => {
+            console.log(err);
+        })    
     }
 
     render(){
         return (
             <div>
+                <h1 align='center'>${this.state.total}</h1>
                 <Doughnut
                     data={this.state}
                     options={{

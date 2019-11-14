@@ -47,7 +47,9 @@ export default class AddExpense extends Component {
         console.log(expense);
 
         axios.post('http://localhost:5000/expenses/add', expense)
-            .then(res => console.log(res.data));
+            .then(res => {
+                console.log(res.data);
+            });
 
         window.location = '/';
     }
@@ -68,7 +70,7 @@ export default class AddExpense extends Component {
                     <div className='form-group'>
                         <label>Category: </label>
                         <select ref='expenseDate' required className='form-control' value={this.state.category} onChange={this.onChangeCategory}>
-                            <option value='' selected disabled hidden>Select category...</option>
+                            <option value='' disabled hidden>Select category...</option>
                             <option value='Food'>Food</option>
                             <option value='Transportation'>Transportation</option>
                             <option value='Entertainment'>Entertainment</option>
