@@ -41,40 +41,41 @@ export default class ExpenseList extends Component {
         this.state = { expenses: [] };
     }
 
-    componentDidMount(){
+    //get expenses
+    getExpenses(){
         axios.get('http://localhost:5000/expenses')
-            .then((res) => {
-                this.setState({ expenses: res.data });
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        .then((res) => {
+            this.setState({ expenses: res.data });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
+    //delete expenses
     deleteExpense(id){
         axios.delete('http://localhost:5000/expenses/' + id)
             .then((res) => {
                 console.log(res.data);
-                axios.get('http://localhost:5000/expenses')
-                    .then(res => {
-                        this.setState({ expenses: res.data });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
+                
+                this.getExpenses();
             })
             .catch((err) => {
                 console.log(err);
             })
-        console.log(this.state);
     }
 
+    //render all expenses
     ExpenseList(){
         return this.state.expenses.map((x) => {
             return <Expense expense={x} deleteExpense={this.deleteExpense} key={x._id}/>;
         });
     }
     
+    componentDidMount(){
+        this.getExpenses();
+    }
+
     render(){
         return (
             <div className='row'>

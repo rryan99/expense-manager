@@ -5,14 +5,18 @@ import { Doughnut } from 'react-chartjs-2';
 export default class Chart extends Component{
     constructor(props){
         super(props);
-        console.log(this.props);
-        this.state = {};
+        this.state = {
+            total: 0,
+            labels: ['Food', 'Transportation', 'Entertainment', 'Misc'],
+            datasets: []
+        };
     }
 
-    componentDidMount(){
+    //calculate total spendings and categorial spendings
+    chartCalc(){
         axios.get('http://localhost:5000/expenses')
-            .then((res) => {
-                //populate amounts
+            .then(res => {
+                //categorial spendings
                 const data = [];
                 for(let i = 0; i < res.data.length; i++){
                     if(!data[res.data[i].category]){
@@ -21,7 +25,7 @@ export default class Chart extends Component{
                     data[res.data[i].category].push(res.data[i].amount);
                 }
 
-                //add amounts
+                //total spendings
                 const amounts = [];
                 amounts[0] = data['Food'].reduce((a, b) => a + b, 0);
                 amounts[1] = data['Transportation'].reduce((a, b) => a + b, 0);
@@ -38,7 +42,6 @@ export default class Chart extends Component{
                 //set state
                 this.setState({
                     total: total,
-                    labels: ['Food', 'Transportation', 'Entertainment', 'Misc'],
                     datasets: [
                         {
                             backgroundColor: [
@@ -58,15 +61,17 @@ export default class Chart extends Component{
                     ]
                 });
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err);
             })
-        .catch(err => {
-            console.log(err);
-        })    
+    }
+
+    componentDidMount(){
+        this.chartCalc();
     }
 
     render(){
+        this.chartCalc();
         return (
             <div>
                 <h1 align='center'>${this.state.total}</h1>
