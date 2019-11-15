@@ -75,7 +75,7 @@ export default class ExpenseList extends Component {
     //add sticky chart if user is not a small res device
     checkRes(){
         if(window.innerWidth>= 768){
-            return <div className='col-sm-6 align-self-center sticky-top'>
+            return <div className='col-sm-6 align-self-start sticky-top' style={{paddingTop: '100px'}}>
                 <Chart/>
             </div>
         }
