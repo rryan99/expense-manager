@@ -73,12 +73,13 @@ export default class Chart extends Component{
     render(){
         this.chartCalc();
         return (
-            <div>
+            <div style={{height: '600px'}}>
                 <h1 align='center'>${this.state.total}</h1>
                 <Doughnut
                     data={this.state}
                     options={{
-                        maintainAspectRatio: true,
+                        responsive: true,
+                        maintainAspectRatio: false,
                         title: {
                             display: true,
                             text: 'Money Spent'

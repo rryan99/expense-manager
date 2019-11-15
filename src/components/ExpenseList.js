@@ -71,6 +71,20 @@ export default class ExpenseList extends Component {
             return <Expense expense={x} deleteExpense={this.deleteExpense} key={x._id}/>;
         });
     }
+
+    //add sticky chart if user is not a small res device
+    checkRes(){
+        if(window.innerWidth>= 768){
+            return <div className='col-sm-6 align-self-center sticky-top'>
+                <Chart/>
+            </div>
+        }
+        else{
+            return <div className='col-sm-6 align-self-center'>
+                <Chart/>
+            </div>
+        }
+    }
     
     componentDidMount(){
         this.getExpenses();
@@ -79,9 +93,7 @@ export default class ExpenseList extends Component {
     render(){
         return (
             <div className='row'>
-                <div className='col-sm-6 align-self-center'>
-                    <Chart />
-                </div>
+                {this.checkRes()}
                 <div className='col-sm-6'>
                     <h2>
                         Expenses &nbsp;

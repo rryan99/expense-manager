@@ -2,7 +2,8 @@
 - chartjs
     - ~~fix render on expense delete~~
     - ~~show total spendings~~
-    - fix position so users can scroll through expenses while seeing the chart
+    - ~~fix position so users can scroll through expenses while seeing the chart~~
+    - fix chart alignment
 - expense list
     - search bar
     - sort
